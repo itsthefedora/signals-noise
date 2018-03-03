@@ -1,0 +1,72 @@
+% Signals & Noise
+% Topology of metric spaces
+
+
+\chapter{Topology of metric spaces}
+
+(Introductory anecdote.)
+
+A vast swath of mathematics is built off of \newterm{sets}, which are abstract tools for conceptualizing collections of mathematical objects. In notation, we often will build a set in our minds using a \newterm{comprehension}; for example, constructing the set
+\[ P = \buildset{p \in \naturals}{\nexists n \in \naturals, n \neq p \st n \textrm{ divides } p} \]
+allows us to reason collectively about the prime numbers, as a set.
+
+The study of sets in and of themselves is an incredibly rich field of inquiry. As it happens, we cannot go off willy-nilly, naïvely constructing sets as our minds see fit. An immediate example was shown by Russell in the early 20th century, who asked one to conceive of the set of all sets that don't contain themselves:
+\[ S = \buildset{A \textrm{ a set}}{A \notin A} \]
+The problem arises when one asks the reasonable question: does $S$ contain itself? Here we see that the definition of $S$ leads to a contradiction: if $S$ does not contain itself, then $S$ must be in $S$; and, similarly, if $S$ is in $S$, then it cannot contain itself.
+
+The problem, Russell and his contemporaries discovered, was in the implicit axiom of ``naïve'' set theory that any collection that could be reasoned about could be instantiated as a mathematical set. It turns out that certain notions are ``too ugly'' to reason about---at least, without the help of some more recent, esoteric objects that grant us a little more leeway. Today, as a result of the work of these set theorists, we have a much more solid foundation on which to build our mathematical understanding; even so, as we will see when we begin to develop our theory of measure, seemingly benign axioms of set theory will again lead us to a very uncomfortable logical place.
+
+For now, we begin our journey with sets---and with structures placed upon them, which will eventually yield an unending landscape of objects for us to study.
+
+\section{Sets}
+
+Before
+
+\subsection{Objects and functions} 
+
+Before
+
+\subsection{The naturals and the rationals}
+
+
+
+\section{Real numbers}
+
+Our goal in this chapter is to develop the theory of a set $X$ augmented with a structure imbued by a \emph{metric}, 
+\[ d: X \times X \to [0, \infty) \]
+which intuitively measures the ``distance'' between two points. As you can imagine---given that the central structure of these objects is specified by a mapping to the reals---this theory is intimately linked with the behavior of the real numbers.
+
+The history of the real numbers ...
+
+...
+
+\subsection{Construction}
+
+One of the most common ways to build the reals is to, in a sense, ``fill in'' the missing numbers between the rationals. This construction, due to Dedekind, has a certain physical intuition to it that makes it quite fun. Once we have some of the machinery of metric spaces, we will explore a ``slicker'' construction.
+
+We're going to leverage the fact that $\rationals$ is \emph{totally ordered}, meaning that we could, in theory, take all of the rationals and line them up such that
+\[ \ldots q_{n-1} \leq q_{n} \leq q_{n+1} \ldots \]
+(with, of course, the caveat that the line would go off infinitely in either direction). But, because we have this lovely ordering, we can speak meaningfully of, for example, sets of the form
+\[ A_r = \buildset{x \in \rationals}{x < r} \]
+for some $r \in \rationals$. We can easily also build the complement of $A_r$---it is simply $B_r = \buildset{x \in \rationals}{x \geq r}$. We have, in a sense, ``split' $\rationals$ into two halves. Importantly, however, observe that $A_r$ has no greatest element; indeed, for any $q = r - \epsilon \in A_r$, $\epsilon \in \rationals$, note that $q + \epsilon/2 < r$ is also in $A_r$.
+
+We can do this construction for any $r \in \rationals$; hence, we can, in a sense, \emph{identify} the rationals with these cuts. But let's not stop here: instead of splitting at a particular rational $r$---which will only net us splits identified with the rationals---let's take \emph{any} splitting of $\rationals$ into two sets, $A$ and $B = A^c$, such that
+\begin{enumerate}
+    \item Neither $A$ nor $B$ is empty.
+    \item $A$ is \emph{closed downwards}: for $x,y \in \rationals$ with $x < y$, then $y \in A \Rightarrow x \in A$.
+    \item $A$ has no greatest element.
+\end{enumerate}
+
+The first condition prevents us from adding elements representing $\pm infty$. It's the second and third conditions that are the ``secret sauce'' for expanding on our earlier construction: they generalize taking $x < r$ by ``adding in'' splits that aren't of that form. To see that we can in fact find more such splits, consider the following sets:
+\begin{eqnarray}
+    A_{\sqrt{2}} & = & \buildset{x \in \rationals}{x < 0 \textrm{ or } x^2 < 2 } \\
+    B_{\sqrt{2}} & = & \buildset{x \in \rationals}{x > 0 \textrm{ and } x^2 > 2 }
+\end{eqnarray}
+Note that the equality must be strict in both cases, as there is no rational $r$ such that $r^2 = 2$. Because of this, it isn't possible to place this partition in the form above; however, it is a valid partition according to our rules (in fact, it is the one corresponding to $\sqrt{2}$!).
+
+\subsection{Sequences}
+
+
+
+\section{Metricc spaces}
+

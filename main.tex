@@ -1,0 +1,74 @@
+% Signals & Noise
+% Main entry point
+
+
+\documentclass[11pt,letterpaper]{book}
+
+
+% Packages
+
+% For sweet theorems
+\usepackage{amsthm}
+% For sweet symbols
+\usepackage{amssymb}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+
+
+% Commands
+
+
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\rationals}{\mathbb{Q}}
+
+\newcommand{\st}{\,:\,}
+\newcommand{\buildset}[2]{\left\{ #1 \mid #2 \right\} }
+
+\newcommand{\newterm}[1]{\textbf{#1}}
+
+
+% The meat
+
+\begin{document}
+
+
+\frontmatter
+
+% Title page
+\begin{titlepage}
+
+    \centering
+    {\scshape\Large Math for Engineers, vol. I \par}
+    \vspace{4.0cm}
+    {\scshape\huge Signals \par}
+    \vspace{0.4cm}
+    {\scshape\huge \& \par}
+    \vspace{0.4cm}
+    {\scshape\huge Noise \par}
+    \vspace{1.0cm}
+    {\Large\itshape Foundations for understanding \par}
+    \vspace{6.0cm}
+    {\Large Max Collard \par}
+
+    \vfill
+
+% Bottom of the page
+%    {\large \today\par}
+\end{titlepage}
+
+\tableofcontents
+
+
+\mainmatter
+
+\include{1-metric-spaces}
+
+
+\backmatter
+
+% ...
+
+
+\end{document}
