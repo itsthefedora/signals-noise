@@ -1,0 +1,157 @@
+% Signals & Noise
+% Kolmogorov formulation of probability theory
+
+
+\chapter{Randomness}
+
+Imagine rolling a standard six-sided die. From a physical standpoint, the mechanics are quite clear: the die has an initial position, orientation, and linear and angular momentum; and, once released, the die is subjected to the expected forces---the downward pull of gravity, collisions and friction with the ground plane. Eventually, the die will most likely come to rest, with one of its faces "facing up" the most, a notion which can be easily formalized using the inner product between the normals of the die's faces and the ground plane.
+
+Though it's difficult to imagine, we can take the space of initial states of the die $S_i$---12 dimensions, encompassing linear and angular position and momentum---and ``color'' each point of it according to what face of the die ended up face up when the die came to rest; that is, we can construct a map from initial state to final roll:
+\[ \func{f_d}{S_i}{\set{1,2,\ldots,6}} \]
+
+There are a few features of this ``die map'' that are worth commenting on. The first is that, owing to the chaotic nature of the underlying dynamics, the geometry of this ``coloring'' of state space is magnificently, confoundingly complicated. To be sure, there are symmetries to be exploited within the problem; for example, we immediately know that the solution must be translationally invariant in the axes parallel to the ground plane. However, many questions remain: how large are contiguous ``tiles'' of the mapping, connected regions of state space that all map to the same value?
+
+The second feature is that, as constructed above, the die map is most certainly not defined on all of $S_i$; for example, while our physical intuition is that such a scenario would never happen, mathematically, if the die were dropped with no initial velocity perfectly edge-on, the die would come to rest balanced perfectly on its edge, with no face ``winning out''. (We could similarly construct an initial state that lands the die exactly on one corner!) But that lends a reasonable question: why don't we get such results in practice? If we were to adjoin an element $\bot$ to the output of $f_d$ indicating no clear winning face, then what does the set
+\[ f_d^{-1}(\bot) \]
+look like? How ``big'' is it? Does it take up ``volume'' in state space?
+
+And of course, the lingering question through all of this: why is it that we can reasonably approximate this setup by saying that the results are ``uniformly distributed'' on $\set{1,2,\ldots,6}$?
+
+Set theorists and analysts alike began experimenting with ways of measuring the ``size'' of sets near the turn of the 20th century. The critical insight came from Henri Lebesgue who, in 1902, recognized that the problem of measure was of fundamental importance to the problem of \emph{integration}, which at the time was suffering from severe theoretical deficiencies. Many mathematicians were hard at work researching methods of function approximation---for example, Joseph Fourier carried out fundamental work on approximating functions as infinite series, each term a trigonometric function. However, while Fourier and others spoke of the convergence of such series $(f_n)$:
+\[ f(x) = \sum_{n = 0}^\infty f_n(x) \]
+it remained devilishly difficult to ascertain whether the convergence of this series implied that
+\[ \int_{[a,b]} \sum_{n = 0}^\infty f_n(x) \stackrel{?}{=} \sum_{n = 0}^\infty \int_{[a,b]} f_n(x) \]
+(It does not immediately follow that this sum is even integrable!) Having an integral that satisfied this property---namely, respectiing sequences in function space---was a highly desirable goal; and, while Riemann's formulation from several decades earlier seemed to reluctant to yield this result, Lebesgue's measure-theoretic formulation made this, and many more properties of analytic value, manifest, while also drastically expanding the space of functions that one could do calculus with.
+
+Enter Andrey Kolmogorov.
+
+When you think about it, probability theory is largely concerned with ``mesuring'' sets, namely, sets of \emph{outcomes} of some process, or \emph{states} of some system: ideally, if a set of states $E$ is ``large'', then the outcome of our experiment, or the state of our system, is more likely to be one of those contained in $E$. This fundamental link between probability theory and measure theory---providing a sort of geometry for randomness---was made by Kolmogorov in 1933. As we will see, Kolmogorov's formulation provides us a wealth of tools to play with in developing our understanding of ``randomness''.
+
+\section{Measure}
+
+What does it mean to identify the ``size'' of a set? We clearly need some kind of ``ruler''! Let's try to identify the properties we want out of this set ``ruler'', which measures the subsets of some given set, $X$. Right away, it's clear that our domain is the powerset of $X$, $\powerset{X}$. We'll also take ``size'' to be a nonnegative real (and, possibly infinite) quantity, although it's worth noting that there are theories that are more expansive in their notion of what ``size'' is. For now, our ``ruler'' is, ideally, a function
+\[ \func{m}{\powerset{X}}{[0,\infty]} \]
+
+We will develop two theories of measure here: first, the theory of \emph{Lebesgue}, which has its roots in the geometry of Euclidean space; and second, the theroy of \emph{Borel}, which utilizes a topology on $X$. As it turns out, these two notions are linked in a beautiful way for Euclidean spaces.
+
+\subsection{The problem of measure}
+
+To start out, we'll say that we are trying to measure a subset of $\reals$; that is, our ``ruler'''s ideal domain is $\powerset{\reals}$.
+
+What else do we need? Well, we need proper \newterm{normalization} of the measure, in order for numerical results to be uniquely specified. In the case of $\reals$, this normalization can be achieved by simply taking
+\[ \feval{m}{[0,1]} = 1\]
+(In the cases of other measures, we may take a slightly different normalization.) At the very least, we would like to make sure that
+\[ \feval{m}{\emptyset} = 0 \]
+
+In the case of $\reals$, we also note that our space has some geometry built in by its vector space structure; hence, again citing geometric intuition, we might also desire that our ``ruler'' is \newterm{translation-invariant}; letting $A + h = \buildset{x + h}{x \in A}$ denote the set of translates of $A$ by $h$, we ask that
+\[ \forall h \in \reals \st \feval{m}{A + h} = \feval{m}{A} \]
+(Built into this, we might also add the requirement that our ``ruler'' assigns equal sizes to geometrically \emph{congruent} sets---sets that are the ``same'' up to translation and rotation.)
+
+Now comes the real meat of our ``ruler'', the property that gives it real mathematical teeth. Suppose you have two separate objects, $A$ and $B$, each with its own size that you can measure; and, suppose further, that you make a new object $AB$ by gluing the two objects together without intersecting. Intuitively, you would like your notion of size to be \newterm{additive}, so that the size of $AB$ is the sum of the sizes of $A$ and $B$. That is, for our measure, we would like \emph{disjoint} sets to \emph{sum}:
+\[ \forall A,B,A \cap B = \emptyset \st \feval{m}{A \cup B} = \feval{m}{A} + \feval{m}{B} \]
+(This, of course, would imply that we could carry out this procedulre with any finite collection $(A_n)$.)
+
+Here is where things start to get hairy. For example, assuming the Axiom of Choice (which we do want!), the following result throws a monkey wrench into the works:
+
+\begin{claim}[Banach-Tarski Paradox]
+Let $A$ and $B$ be bounded subsets of $\reals^n$, $n \geq 3$, both with nonempty interior. Then, there is an integer $k$, and partitions $A = \bigcup_{n=1}^k A_n$, $B = \bigcup_{n=1}^k B_n$ into disjoint subsets, such that for each $i \in \set{1,2,\ldots,k}$, $A_i$ is geometrically congruent to $B_i$. (See proof in Appendix.)
+\end{claim}
+
+Although we've set out just to work with $\reals$, this result has sobering implications---in particular, that there is no way for us to have a nontrivial finitely additive ``ruler'' defined for all subsets of $\reals^n$ for $n \geq 3$; indeed, we should have, based on finite additivity:
+\[ \feval{m}{A} = \feval{m}{\bigcup_{n=1}^k A_n} = \sum_{n=1}^k \feval{m}{A_n} = \sum_{n=1}^k \feval{m}{B_n} = \feval{m}{\bigcup_{n=1}^k B_n} = \feval{m}{B} \]
+where the middle equality was based on the geometric congruence of the $A_n$ and $B_n$. However, the choices of $A$ and $B$ were completely arbitrary! We could have decided to let $A$ be a kernel of corn and $B$ be Jupiter; obviously, something went wrong. Somehow, the geometry of sets (facilitated by the Axiom of Choice) has allowed us to carve up $A$ and $B$ into pieces that are so profoundly ugly that they break our notion of measure when we try to reassemble them. (Extra neat!)
+
+What's more, finite additivity doesn't provide us enough structure to fully solve one of the conundrums we set out to investigate, the eixistence of integrals of infinite series of functions. As we will see, to build an integral that has all of the properties we desire, we will need to expand our axiom, to \newterm{countable additivity}; that is, for \emph{any} sequence of sets $(A_n)$, with $A_i \cap A_j = \emptyset$ when $i \neq j$ (that is, \emph{pairwise disjoint}), we have
+\[ \feval{m}{\bigcup_{n} A_n} = \sum_n \feval{m}{A_n} \]
+(We note that going even further, to allow \emph{uncountable} unions, is actually mathematically rather boring; indeed, if $A$ is an uncountable set, and $(r_\alpha)$ an uncountable collection of real numbers indexed by $A$, then $\sum_{\alpha \in A} r_\alpha$ diverges if $(r_\alpha)$ has an uncountable number of nonzero entries. That is, the theory of uncountable sums essentially reduces to the original theory of sums of countable nonzero terms (which might converge), plus a theory of sums of uncountable nonzero terms (which all diverge). And so, we are content stopping at countable.)
+
+Unfortunately, countably additive measures get us into even deeper trouble. While at first we were safe in 1 or 2 dimensions from Banach-Tarski's wrath, with \emph{countable} additivity, we become subject to a corollary with similar counterintuitive conclusions about sets' size. Far uglier, however, is the fact that we can now explicitly construct sets for which we have no hope of assigning a consistent measure.
+
+\begin{theorem}[Vitali Existence Theorem]
+Let $\mathcal{A} \subset \powerset{[0,1)}$, and let $\func{\mu}{\mathcal{A}}{[0,\infty]}$ satisfy $\feval{\mu}{[0,1)} = 1$, translation invariance, and countable additivity. Then $\mathcal{A} \subsetneq \powerset{[0,1)}$; that is, there exist nonmeasurable sets.
+\end{theorem}
+\begin{proof}
+Begin by identifying $[0,1)$ with the circle by gluing the ends. Note that we can extend addition (and hence subtraction) to this setting by performing the operation modulo 1:
+\[
+    x + y \modulo{1} = 
+\begin{cases}
+    x + y,      & x + y < 1 \\
+    x + y - 1,  & x + y \geq 1
+\end{cases}
+\]
+We can similarly extend this definition to set translation in the expected way; and, further, we can show that the translation invariance of $\mu$ implies translation invariance with these new circular operations. (How?)
+
+Vitali observed that we can construct a curious equivalence relation on this structure, owing to the algebraic properties of $\reals$ and $\rationals$; that is, we say two elements $x,y \in [0,1)$ are \emph{equivalent} if they are separated by a rational; that is,
+\[ x \sim y \Leftrightarrow x - y \in \rationals \]
+Going one step further, we can partition $[0,1)$ into \emph{equivalence classes}, or sets of equivalent elements, using this relation:
+\[ [x] = \buildset{y \in [0,1)}{x - y \in \rationals} \]
+Observe, however, that these equivalence classes are essentially ``copies'' of $\rationals \cap [0,1)$, formed by taking the difference between $x$ and every available rational number; that is,
+\[ [x] = \rationals + x \modulo{1} \]
+
+Now, we can use the Axiom of Choice to construct a new set, $V$, by choosing exactly one element from each of the equivalence classes constructed above. (Note immediately that, since each of the equivalence classes is countable, but the circle is uncountable, $V$ must necessarily be uncountable.) Now, consider the translates of $V$ by rational numbers $r$, $V_r = V + r \modulo{1}$. Our goal is to show that these translates of $V$ actually partition $[0, 1)$, so that we may apply our beloved countable additivity.
+
+First, let us show that
+\[ [0,1) = \bigcup_{r \in \rationals \cap [0,1)} V_r = \mathcal{F} \]
+where we denute the union by $\mathcal{F}$ for brevity. We note that, by construction, for any $x \in [0, 1)$, there is precisely one $y \in V$ such that $x \sim y$ (since we chose this $y$ from the respective equivalence class); hence, $x - y \in \rationals$, and so $x \in V_{x - y}$. Since we can repeat this for any such $x$, it follows that $[0,1) \subset \mathcal{F}$. The reverse inclusion comes easily, as each $V_r \subset [0,1)$ by construction.
+
+To see that the individual $V_r$ are disjoint, note that $x \in V_r \cap V_s$ would imply that $x$ is a translate by both $r$ and $s$ of elements in $V$; that is,
+\[
+    x = 
+\begin{cases}
+    y + r      & \modulo{1} \\
+    z + s      & \modulo{1}
+\end{cases}
+\]
+for some $y, z \in V$; hence, $y + r = z + s \modulo{1}$. But since $r$ and $s$ are rational, this means that $y - z \in \rationals$, and hence $y \sim z$. But $y$ and $z$ were chosen, by construction, to be \emph{unique} representatives from their equivalence classes; that is, $y \sim z \Rightarrow y = z$. This implies that $r = s$. Since $x \in V_r \cap V_s \Rightarrow r = s$, it follows that $V_r \cap V_s = \emptyset$ whenever $r \neq s$.
+
+Now that we've established that the $V_r$ partition $[0,1)$, we can proceed to ``sizing-up'' our sets. Suppose that $\feval{\mu}{V}$ exists. Since $\mu$ is translation invariant, then $\feval{\mu}{V_r} = \feval{\mu}{V + r \modulo{1}} = \feval{\mu}{V}$ for any $r$. Hence, by countable additivity, we have
+\[ 1 = \feval{\mu}{[0,1)} = \feval{\mu}{\bigcup_{r \in \rationals \cap [0,1)} V_r} = \sum_{r \in \rationals \cap [0,1)} \feval{\mu}{V_r} = \sum_{r \in \rationals \cap [0,1)} \feval{\mu}{V} \]
+This immediately implies that there is no consistent way to assign a value to $\feval{\mu}{V}$: if it is zero, then the final sum above is zero, inconsistent with our assignment of a value of 1 to $\feval{\mu}{[0,1)}$; on the other hand, if it is nonzero, then the sum must necessarily diverge, again yielding an inconsistency. It follows that $V$ is \newterm{nonmeasurable}.
+\end{proof}
+
+The takeaway message here is that the Axiom of Choice---while extremely useful for allowing to construct the rest of our mathematics---has devilish consequences when it comes to measure theory. The plan of action, however, is not to flee in despair! Instead, we must recognize that, in order to build a usable theory, we must acknowledge the inherent limitations in our quest. To that end, we must ask ourselves: what is the best we can do, as far as identifying where our ``ruler'' is defined?
+
+\ldots
+
+\begin{definition}[$\sigma$-algebra]
+Given a set $X$, a \newterm{$\sigma$-algebra} is a set $\Sigma \subset \powerset{X}$ such that
+\begin{enumerate}
+    \item $\Sigma$ contains the ``universal set'': $X \in \Sigma$
+    \item $\Sigma$ is closed under \emph{complements}: if $A \in \Sigma$ then $X \setminus A \in \Sigma$
+    \item $\Sigma$ is closed under \emph{countable unions}: if $(A_n) \subset \Sigma$ then $\bigcup_n A_n \in \Sigma$
+\end{enumerate}
+\end{definition}
+
+\ldots
+
+So, where does that leave us? For a \emph{general} ``ruler''-like object, the primary elements are normalization and countable additivity, with the extra bits sprinkled in for flavor when necessary. We'll call such a ``ruler'' a \newterm{measure}.
+
+\begin{definition}[Measure]
+Let $X$ be a set, and $\Sigma$ a $\sigma$-algebra on $X$. Then a function
+\[ \func{\mu}{\Sigma}{[0,\infty]} \]
+is a \newterm{measure} if
+\begin{enumerate}
+    \item $\feval{\mu}{\emptyset} = 0$
+    \item For a sequence $(E_n)$ of disjoint sets in $\Sigma$,
+    \[ \feval{\mu}{\bigcup_n E_n} = \sum_n \feval{\mu}{E_n} \]
+\end{enumerate}
+\end{definition}
+
+\subsection{Lebesgue measure}
+
+\ldots
+
+(Caratheodoroy's theorem)
+
+\ldots
+
+\subsection{Borel measure}
+
+\ldots
+
+\section{Probability spaces}
+
+\ldots
+
+\section{Random variables}
+

@@ -2,7 +2,7 @@
 % Topology of metric spaces
 
 
-\chapter{Topology of metric spaces}
+\chapter{Metric spaces}
 
 (Introductory anecdote.)
 
@@ -57,7 +57,9 @@ We can do this construction for any $r \in \rationals$; hence, we can, in a sens
     \item $A$ has no greatest element.
 \end{enumerate}
 
-The first condition prevents us from adding elements representing $\pm infty$. It's the second and third conditions that are the ``secret sauce'' for expanding on our earlier construction: they generalize taking $x < r$ by ``adding in'' splits that aren't of that form. To see that we can in fact find more such splits, consider the following sets:
+The first condition prevents us from adding elements representing $\pm \infty$. It's the second and third conditions that are the ``secret sauce'' for expanding on our earlier construction: they generalize the notion of taking $x < r$ by ``adding in'' splits that aren't of that form (with rational $r$) by using the total order on $\rationals$ (ideas like ``closed downwards'' and ``no greatest element'').
+
+To see that we can in fact find more such splits, consider the following sets:
 \begin{eqnarray}
     A_{\sqrt{2}} & = & \buildset{x \in \rationals}{x < 0 \textrm{ or } x^2 < 2 } \\
     B_{\sqrt{2}} & = & \buildset{x \in \rationals}{x > 0 \textrm{ and } x^2 > 2 }

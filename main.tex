@@ -11,6 +11,8 @@
 \usepackage{amsthm}
 % For sweet symbols
 \usepackage{amssymb}
+% For sweet math
+\usepackage{amsmath}
 
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
@@ -19,15 +21,44 @@
 % Commands
 
 
+\let\emptyset\varnothing
+
+\newcommand{\complex}{\mathbb{C}}
 \newcommand{\reals}{\mathbb{R}}
 \newcommand{\naturals}{\mathbb{N}}
+\newcommand{\integers}{\mathbb{Z}}
 \newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\powerset}[1]{\mathcal{P}\left( #1 \right) }
 
 \newcommand{\st}{\,:\,}
-\newcommand{\buildset}[2]{\left\{ #1 \mid #2 \right\} }
+\newcommand{\buildset}[2]{ \left\{ #1 \mid #2 \right\} }
+\newcommand{\set}[1]{ \left\{#1\right\} }
+\newcommand{\func}[3]{ #1: \, #2 \to #3}
+\newcommand{\feval}[2]{ #1\left( #2 \right) }
+\newcommand{\fevald}[2]{ #1\left[ #2 \right] }
+\newcommand{\blank}{\_}
+\newcommand{\defeq}{:=}
+
+% \newcommand{\vector}[1]{\mathbf{#1}}
+
+\newcommand{\modulo}[1]{\,(\textrm{mod } #1)}
+\newcommand{\compose}{\circ}
+\newcommand{\convolve}{\ast}
 
 \newcommand{\newterm}[1]{\textbf{#1}}
 
+\newcommand{\ie}{\emph{i.e.}}
+\newcommand{\eg}{\emph{e.g.}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{remark}
+\newtheorem{claim}{Claim}
+\newtheorem{example}{Example}
 
 % The meat
 
@@ -64,6 +95,8 @@
 \mainmatter
 
 \include{1-metric-spaces}
+\include{2-signals-systems}
+\include{3-randomness}
 
 
 \backmatter
